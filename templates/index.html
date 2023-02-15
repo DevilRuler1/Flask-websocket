@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Flask-Sock Demo</title>
+</head>
+
+<body>
+    <h1>Flask-Sock Demo</h1>
+    <button onclick=connect()>connect to socket</button>
+    <button onclick=dis()>disconnect to socket</button>
+    <div id="log"></div>
+    <br>
+    <script>
+        const socket = new WebSocket('ws://' + location.host + '/echo');
+        function connect() {
+            const log = (text, color) => {
+                document.getElementById('log').innerHTML += `<span style="color: ${color}">${text}</span><br>`;
+            };
+
+
+            socket.addEventListener('message', ev => {
+                log('<<< ' + ev.data, 'blue');
+            });
+        }
+
+        function dis() {
+            socket.close()
+            document.getElementById('log').innerHTML = ""
+        }
+    </script>
+</body>
+
+</html>
